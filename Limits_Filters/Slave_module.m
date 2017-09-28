@@ -19,7 +19,7 @@ N = 11;
 fr = fs/N;
 
 % Cutoff frequency
-fc_desired  = 2;
+fc_desired  = 10;
 cutoff_int_needed = fc_desired / fr;
 
 cutoff_int = 1;
@@ -31,3 +31,13 @@ Group_delay = (N-1)/2 * 1/fs;
 % Easy Method
 FIR_Coef_m = fir1(N,fc/(0.5*fs),'low');
 fvtool(FIR_Coef_m);
+
+% 
+% Error detection delay 
+% 
+
+% Partir un timer
+% Additionner l'erreur (Faire une integrale)
+% si le resultat de l'intégrale est > 0 apres x ms, declenche l'erreur
+
+
