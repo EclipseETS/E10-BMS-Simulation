@@ -1,3 +1,7 @@
+% Simulink Simulation setting
+%set_param('slave_model','AlgebraicLoopSolver','TrustRegion')
+%set_param('slave_model','AlgebraicLoopSolver','LineSearch')
+
 %
 % Slave module model
 %
@@ -13,7 +17,7 @@
 fs = 100;
 
 % N samples
-N = 11;
+N = 14;
 
 % Frequency resolution
 fr = fs/N;
@@ -29,7 +33,9 @@ fc = cutoff_int/N * fs;
 Group_delay = (N-1)/2 * 1/fs;
 
 % Easy Method
-FIR_Coef = fir1(N,fc/(0.5*fs),'low');
+FIR_Coef = fir1(N,fc/(0.5*fs),'low'); 
+% Write coefficient to csv file
+dlmwrite('FIR_Coef.csv',FIR_Coef, 'precision', 9)
 %fvtool(FIR_Coef_m);
 
 % ADC
@@ -54,6 +60,7 @@ pwm_res = 5;
 pwm_min = 0;
 pwm_max = 2^pwm_res-1;
 pwm_resolution = 1/(pwm_max+1);
+pwm_freq = fs*10;
 
 % Charging current in balancing mode [A]
 Icharge = 300E-3;
@@ -68,7 +75,7 @@ Ibleed_max = 4.2/Rb;
 ESR = 10E-3;
 
 % Time constant
-td = 25e-6;
+td = 100e-3;
 
 % Target battery voltage [V]
 Vtarget = 4.15;
