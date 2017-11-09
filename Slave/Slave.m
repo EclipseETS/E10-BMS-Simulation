@@ -6,6 +6,8 @@
 % Slave module model
 %
 
+%% FIR filter
+
 % 
 % FIR coefficient calculator for all 8 modules voltage measurement
 % 
@@ -36,23 +38,35 @@ Group_delay = (N-1)/2 * 1/fs;
 FIR_Coef = fir1(N,fc/(0.5*fs),'low'); 
 % Write coefficient to csv file
 dlmwrite('FIR_Coef.csv',FIR_Coef, 'precision', 9)
-%fvtool(FIR_Coef_m);
+%fvtool(FIR_Coef);
 
 % ADC
 adc_ref = 4.85;
 adc_max = 2^12-1;
 adc_lsb = adc_ref/(adc_max+1);
-% 
-% Error detection delay 
-% 
+
+
+%% Error detection
+
+% Voltage thesholds with delay
+V_max = 4.2;
+V_min = 3;
+
+% Instant Error Voltage thesholds
+V_max_hard = 4.3;
+V_min_hard = 2.5;
+
+% Error Detection Delay
+Error_Det_Delay = 0.8-Group_delay;
+Error_Det_Z_Delay = round(Error_Det_Delay / (1/fs),0);
 
 % Partir un timer
 % Additionner l'erreur (Faire une integrale)
 % si le resultat de l'intégrale est > 0 apres x ms, declenche l'erreur
 
-%
-% Balancing
-%
+
+%% Balancing
+
 
 % MODEL %
 % Number of bit for PWM duty cycle
