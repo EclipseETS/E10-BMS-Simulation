@@ -2,7 +2,7 @@ Module_Spec
 % Run Generate_cell_Spec before. This is in another file to keep the same
 % R0 and capacity vectors.
 
-Scenario = 10;
+Scenario = 11;
 initial_SOC = 100; % SOC [%]
 
 % Scenario 1
@@ -85,8 +85,39 @@ if Scenario == 10
     Capacity_max = Capacity_max_norm3;
     R0 = R0_norm1;
 end
-% vpa(Capacity_max_norm1,4)
-% vpa(R0_norm1,4)
+
+% Scenario 11 - Ligne horizontale
+% Capacity : sigma data 
+% Z : Semblable
+if Scenario == 11
+    Capacity_equaly_dist = [3197,3171,3146,3127,3098,3059];
+    C_mean = mean(Capacity_equaly_dist);
+    Capacity_max = Capacity_equaly_dist;
+    Z_equal = [58,57,57,56,54,56];
+    R0 = Z_equal;
+end
+
+% Scenario 12 - Ligne diagonale
+% Capacity : sigma data 
+% Z : Semblable
+if Scenario == 12
+    Capacity_dia_dist = [3015,3072,3096,3124,3207,3155];
+    C_mean = mean(Capacity_dia_dist);
+    Capacity_max = Capacity_dia_dist;
+    Z_equal = [130,86,74,59,53,57];
+    R0 = Z_equal;
+end
+
+% Scenario 13 - Ligne horizontale
+% Capacity : sigma data 
+% Z : Semblable
+if Scenario == 13
+    Capacity_equaly_dist = [3034,3107,3073,3173,3141,3210];
+    C_mean = mean(Capacity_equaly_dist);
+    Capacity_max = Capacity_equaly_dist;
+    Z_equal = [73,72,72,68,69,67];
+    R0 = Z_equal;
+end
 
 I_discharge = C_mean;
 
@@ -150,10 +181,14 @@ I_discharge = C_mean;
 % 7 : 18.90     Sum : 18.9158    i_max : 1.0070    0.9797    0.7422    0.7907    0.8043    1.0294
 % 8 : 18.60     Sum : 18.9158    i_max : 1.0069    2.8090    2.2267    2.1420    2.8383    2.2650
 % 9 : 18.62     Sum : 18.8980    i_max : 0.9996    2.1055    2.2380    2.3242    2.3229    2.1787
-% 10 : 18.40     Sum : 18.4240    i_max : 1.0039    0.7729    0.8983    0.9492    0.8330    0.8042
+% 10 : 18.40     Sum : 18.4240   i_max : 1.0039    0.7729    0.8983    0.9492    0.8330    0.8042
+% Stop at 2.7V
+% 11 : 18.75     Sum: 18.798     i_max : 1.0042    0.8467    0.8389    0.8384    0.8461    0.8251
+% 12 : 15.47     Sum: 18.669     i_max : 1.0009    1.2630    1.3051    1.4149    1.5506    1.4591
+% 13 : 18.41     Sum: 18.738     i_max : 0.9993    2.0225    2.0000    2.1077    2.0761    2.1417
 
 %% Courant Max
-max_i_cell = max([Cell1_sim.Current__A_.Data(1:end-1000),Cell2_sim.Current__A_.Data(1:end-1000),Cell3_sim.Current__A_.Data(1:end-1000),Cell4_sim.Current__A_.Data(1:end-1000),Cell5_sim.Current__A_.Data(1:end-1000),Cell6_sim.Current__A_.Data(1:end-1000)]);
+%max_i_cell = max([Cell1_sim.Current__A_.Data(1:end-1000),Cell2_sim.Current__A_.Data(1:end-1000),Cell3_sim.Current__A_.Data(1:end-1000),Cell4_sim.Current__A_.Data(1:end-1000),Cell5_sim.Current__A_.Data(1:end-1000),Cell6_sim.Current__A_.Data(1:end-1000)]);
 %% Plot Cell Current
 % figure
 % hold on
